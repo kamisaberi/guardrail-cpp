@@ -1,10 +1,3 @@
-Here is a complete, production-grade **`README.md`** for your **`guardrail-cpp`** repository.
-
-You can copy and paste this directly into your GitHub repository (`github.com/kamisaberi/guardrail-cpp`).
-
----
-
-```markdown
 # guardrail-cpp
 
 [![C++20](https://img.shields.io/badge/C%2B%2B-20-blue.svg)](https://en.cppreference.com/w/cpp/20)
@@ -219,4 +212,3 @@ Distributed under the **Apache 2.0 License**. See [`LICENSE`](LICENSE) for detai
 - **GitHub:** [@kamisaberi](https://github.com/kamisaberi)
 - **LinkedIn:** [kamisaberi](https://linkedin.com/in/kamisaberi)
 - **Email:** [kamisaberi@gmail.com](mailto:kamisaberi@gmail.com)
-```
