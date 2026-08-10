@@ -1,0 +1,54 @@
+# rules/strict_guardrails.yaml
+# Production Security Policy Specification for guardrail-cpp
+# Author: Kamran Saberifard
+# License: Apache 2.0
+
+policy_name: "strict_guardrails"
+description: "Production security policy enforcing sub-millisecond prompt injection defense, PII leak protection, and canary token tracking."
+
+# Default enforcement threshold and action for matched rules
+default_confidence_threshold: 0.75
+default_action: "BLOCK" # Options: BLOCK | SANITIZE | LOG_ONLY | ALLOW
+
+# ------------------------------------------------------------------------------
+# Rule-Specific Threshold & Enforcement Overrides
+# ------------------------------------------------------------------------------
+rule_specs:
+  # System Prompt Override & Jailbreak Rules
+  - rule_id: "SYSTEM_OVERRIDE_01"
+    category: "PROMPT_INJECTION"
+    confidence_threshold: 0.70
+    action_on_match: "BLOCK"
+
+  - rule_id: "JAILBREAK_DAN_01"
+    category: "PROMPT_INJECTION"
+    confidence_threshold: 0.70
+    action_on_match: "BLOCK"
+
+  - rule_id: "DELIMITER_INJECTION_01"
+    category: "DELIMITER_INJECTION"
+    confidence_threshold: 0.80
+    action_on_match: "BLOCK"
+
+  # System Prompt Exfiltration & Canary Token Rules
+  - rule_id: "CANARY_TOKEN_LEAK"
+    category: "SYSTEM_PROMPT_LEAK"
+    confidence_threshold: 0.95
+    action_on_match: "BLOCK"
+
+  # PII & Secret Leak Rules
+  - rule_id: "PII_CREDIT_CARD"
+    category: "PII_LEAK"
+    confidence_threshold: 0.85
+    action_on_match: "SANITIZE"
+    replacement_text: "[REDACTED_CREDIT_CARD]"
+
+  - rule_id: "PII_AWS_KEY_PREFIX"
+    category: "SECRET_LEAK"
+    confidence_threshold: 0.90
+    action_on_match: "BLOCK"
+
+  - rule_id: "PII_PRIVATE_KEY_HEADER"
+    category: "SECRET_LEAK"
+    confidence_threshold: 0.95
+    action_on_match: "BLOCK"
